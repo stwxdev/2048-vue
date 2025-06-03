@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
+import { useLangStore } from '../stores/langStore.js';
 
 const props = defineProps({
   grid: {
@@ -11,6 +12,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['restart']);
+const langStore = useLangStore();
 
 const getTileColor = (value) => {
   const colors = {
@@ -43,12 +45,12 @@ const getTileFontSize = (value) => {
 <template>
   <div class="grid-container">
     <div v-if="gameOver" class="game-message game-over">
-      <div>Гра закінчена!</div>
-      <button @click="emit('restart')" class="restart-btn">Спробувати ще</button>
+      <div>{{ langStore.t('gameOver') }}</div>
+      <button @click="emit('restart')" class="restart-btn">{{ langStore.t('tryAgain') }}</button>
     </div>
     <div v-if="gameWon" class="game-message game-won">
-      <div>Ви перемогли!</div>
-      <button @click="emit('restart')" class="restart-btn">Грати знову</button>
+      <div>{{ langStore.t('youWon') }}</div>
+      <button @click="emit('restart')" class="restart-btn">{{ langStore.t('playAgain') }}</button>
     </div>
     
     <div class="grid">

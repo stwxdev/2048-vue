@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import GameHeader from './components/GameHeader.vue';
 import GameControls from './components/GameControls.vue';
 import GameBoard from './components/GameBoard.vue';
+import ProjectInfo from './components/ProjectInfo.vue';
 
 const grid = ref([]);
 const score = ref(0);
@@ -61,7 +62,7 @@ const checkGameOver = () => {
 
 const moveTiles = (direction) => {
   if (gameOver.value || gameWon.value || animating.value) return;
-  
+
   animating.value = true;
   const originalGrid = JSON.parse(JSON.stringify(grid.value));
   let moved = false;
@@ -86,11 +87,11 @@ const moveTiles = (direction) => {
   else if (direction === 'up') rotations = 3;
 
   let currentGrid = rotateGrid(grid.value, rotations);
-  
+
   for (let i = 0; i < gridSize; i++) {
     const row = currentGrid[i].filter(val => val !== 0);
     const newRow = [];
-    
+
     for (let j = 0; j < row.length; j++) {
       if (j + 1 < row.length && row[j] === row[j + 1]) {
         const merged = row[j] * 2;
@@ -102,18 +103,18 @@ const moveTiles = (direction) => {
         newRow.push(row[j]);
       }
     }
-    
+
     while (newRow.length < gridSize) {
       newRow.push(0);
     }
-    
+
     currentGrid[i] = newRow;
   }
-  
+
   grid.value = rotateGrid(currentGrid, (4 - rotations) % 4);
-  
+
   moved = JSON.stringify(grid.value) !== JSON.stringify(originalGrid);
-  
+
   if (moved) {
     setTimeout(() => {
       addRandomTile();
@@ -121,11 +122,11 @@ const moveTiles = (direction) => {
         bestScore.value = score.value;
         localStorage.setItem('bestScore', bestScore.value);
       }
-      
+
       if (checkGameOver()) {
         gameOver.value = true;
       }
-      
+
       animating.value = false;
     }, 150);
   } else {
@@ -161,10 +162,10 @@ const handleTouchStart = (event) => {
 const handleTouchEnd = (event) => {
   const touchEndX = event.changedTouches[0].clientX;
   const touchEndY = event.changedTouches[0].clientY;
-  
+
   const dx = touchEndX - touchStartX;
   const dy = touchEndY - touchStartY;
-  
+
   if (Math.abs(dx) > Math.abs(dy)) {
     if (dx > 0) {
       moveTiles('right');
@@ -185,7 +186,7 @@ onMounted(() => {
   if (savedBestScore) {
     bestScore.value = parseInt(savedBestScore);
   }
-  
+
   initGame();
   window.addEventListener('keydown', handleKeyDown);
 });
@@ -196,8 +197,9 @@ onMounted(() => {
     <GameHeader :score="score" :bestScore="bestScore" />
     <GameControls @newGame="initGame" />
     <GameBoard :grid="grid" :gameOver="gameOver" :gameWon="gameWon" @restart="initGame" />
+    <ProjectInfo />
   </div>
-</template> 
+</template>
 
 <style>
 #app {

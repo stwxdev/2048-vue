@@ -1,14 +1,22 @@
-# .
+# 2048 Game - Vue.js Implementation
 
-This template should help get you started developing with Vue 3 in Vite.
+A Vue.js implementation of the popular 2048 game. This project was built using Vue 3 and Vite.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Classic 2048 gameplay
+- Responsive design for desktop and mobile
+- Touch support for mobile devices
+- Score tracking with best score saved in localStorage
+- Language support for English and Ukrainian
 
-## Customize configuration
+## Demo
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+You can play the game online at https://2048.stwx.dev
+
+## How to Play
+
+Use the arrow keys (on desktop) or swipe gestures (on mobile) to move the tiles. When two tiles with the same number touch, they merge into one! The goal is to create a tile with the number 2048.
 
 ## Project Setup
 
@@ -27,3 +35,11 @@ npm run dev
 ```sh
 npm run build
 ```
+
+## Credits
+
+This game is inspired by the original 2048 game created by Gabriele Cirulli.
+
+## License
+
+[MIT License](LICENSE)

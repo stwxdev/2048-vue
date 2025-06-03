@@ -1,14 +1,16 @@
 <script setup>
 import { defineEmits } from 'vue';
+import { useLangStore } from '../stores/langStore.js';
 
 const emit = defineEmits(['newGame']);
+const langStore = useLangStore();
 </script>
 
 <template>
   <div class="controls">
-    <button @click="emit('newGame')" class="new-game-btn">Нова гра</button>
+    <button @click="emit('newGame')" class="new-game-btn">{{ langStore.t('newGame') }}</button>
     <p class="instructions">
-      <strong>ЯК ГРАТИ:</strong> Використовуйте клавіші зі стрілками, щоб переміщувати плитки. Коли дві плитки з однаковим числом стикаються, вони об'єднуються в одну!
+      {{ langStore.t('instructions') }}
     </p>
   </div>
 </template> 
